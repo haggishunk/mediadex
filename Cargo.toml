@@ -1,5 +1,5 @@
 [package]
-name = "medi"
+name = "mediadex"
 version = "0.1.0"
 authors = ["haggishunk <travis@mattera.io>"]
 edition = "2018"
