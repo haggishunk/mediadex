@@ -1,0 +1,12 @@
+[package]
+name = "medi"
+version = "0.1.0"
+authors = ["haggishunk <travis@mattera.io>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+data-encoding = "2.1.2"
+ring = "0.16.9"
+structopt = "0.2.10"
