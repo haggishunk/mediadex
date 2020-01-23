@@ -5,6 +5,7 @@ use data_encoding::HEXUPPER;
 use ring::digest::{Context, Digest, SHA256};
 use std::fs::File;
 use std::io::{BufReader, Read, Error};
+use structopt::StructOpt;
 
 fn sha256_digest<R: Read>(mut reader: R) -> Result<Digest, Error> {
     let mut context = Context::new(&SHA256);
@@ -22,16 +23,25 @@ fn sha256_digest<R: Read>(mut reader: R) -> Result<Digest, Error> {
     Ok(context.finish())
 }
 
+#[derive(StructOpt)]
+struct Cli {
+    #[structopt(parse(from_os_str))]
+    path: std::path::PathBuf,
+}
+
+
 // how should the sha256 digest be used?
 // what other ways can we present a stream of bytes?
 
 fn main() -> Result<(), Error> {
-    let path = "this.mp3";
-    let input = File::open(path)?;
+
+    let args = Cli::from_args();
+    let input = File::open(args.path)?;
     let reader = BufReader::new(input);
     let digest = sha256_digest(reader)?;
 
     println!("sha256 digest: {}", HEXUPPER.encode(digest.as_ref()));
+     
 
     Ok(())
 }
